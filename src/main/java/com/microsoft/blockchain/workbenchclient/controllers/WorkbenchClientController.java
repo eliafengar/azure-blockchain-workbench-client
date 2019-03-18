@@ -1,5 +1,6 @@
 package com.microsoft.blockchain.workbenchclient.controllers;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
@@ -16,7 +17,10 @@ import io.swagger.client.model.ContractList;
 import io.swagger.client.model.Me;
 
 @RestController
-public class LoginServiceController {
+public class WorkbenchClientController {
+
+	@Value("${workbench.api.url}")
+	private String workbenchApiUrl;
 
 	// @Autowired
 	// private OAuth2AuthorizedClientService authorizedClientService;
@@ -73,7 +77,7 @@ public class LoginServiceController {
 	}
 
 	private void configureApi(ApiClient api, String accessToken) {
-		api.setBasePath("https://myworkbench-65oim4-api.azurewebsites.net");
+		api.setBasePath(this.workbenchApiUrl);
 		api.addDefaultHeader("Authorization", "Bearer " + accessToken);
 	}
 

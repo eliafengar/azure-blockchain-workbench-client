@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 @EnableWebSecurity
-public class LoginServiceSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class WorkbenchClientSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService;

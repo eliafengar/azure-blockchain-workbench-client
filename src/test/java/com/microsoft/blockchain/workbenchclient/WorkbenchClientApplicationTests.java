@@ -1,4 +1,4 @@
-package com.afengar.travelguide.loginservice;
+package com.microsoft.blockchain.workbenchclient;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class LoginServiceApplicationTests {
+public class WorkbenchClientApplicationTests {
 
 	@Test
 	public void contextLoads() {
