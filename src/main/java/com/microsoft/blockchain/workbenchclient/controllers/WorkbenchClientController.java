@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.api.ApplicationsApi;
+import io.swagger.client.api.CapabilitiesApi;
 import io.swagger.client.api.ContractsApi;
+import io.swagger.client.api.LedgersApi;
 import io.swagger.client.api.UsersApi;
 import io.swagger.client.model.ApplicationList;
+import io.swagger.client.model.Capabilities;
 import io.swagger.client.model.ContractList;
+import io.swagger.client.model.LedgerList;
 import io.swagger.client.model.Me;
 
 @RestController
@@ -61,14 +65,40 @@ public class WorkbenchClientController {
 		return null;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, path = "ledgers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public LedgerList ledgers(OAuth2AuthenticationToken authentication) {
+		try {
+			LedgersApi api = new LedgersApi();
+			this.configureApi(api.getApiClient(), this.getAccessToken(authentication));
+			Integer top = 100;
+			Integer skip = null;
+			return api.ledgersGet(top, skip);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "capabilities", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Capabilities operations(OAuth2AuthenticationToken authentication) {
+		try {
+			CapabilitiesApi api = new CapabilitiesApi();
+			this.configureApi(api.getApiClient(), this.getAccessToken(authentication));
+			return api.capabilitiesGet();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
 	@RequestMapping(method = RequestMethod.GET, path = "contracts", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ContractList contracts(OAuth2AuthenticationToken authentication) {
 		try {
 			ContractsApi api = new ContractsApi();
 			this.configureApi(api.getApiClient(), this.getAccessToken(authentication));
-			Integer top = null;
+			Integer top = 10;
 			Integer skip = null;
-			Integer workflowId = null;
+			Integer workflowId = 1;
 			return api.contractsGet(top, skip, workflowId);
 		} catch (Exception ex) {
 			ex.printStackTrace();
